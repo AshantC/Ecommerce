@@ -113,15 +113,19 @@
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="/">
-                                <img src="{% static 'img/logo.png' %}" alt="Logo">
+                                <img src="{% static 'img/logo.png' %}"
+                                    alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
+                        <form method="GET">
+                            {% csrf_token %}
+                            <div class="search">
+                                <input name="search" type="text" placeholder="Search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
@@ -211,9 +215,12 @@
                     <div class="col-md-6">
                         <div class="payment-security">
                             <h2>Secured By:</h2>
-                            <img src="{% static 'img/godaddy.svg' %}" alt="Payment Security" />
-                            <img src="{% static 'img/norton.svg' %}" alt="Payment Security" />
-                            <img src="{% static 'img/ssl.svg' %}" alt="Payment Security" />
+                            <img src="{% static 'img/godaddy.svg' %}"
+                                alt="Payment Security" />
+                            <img src="{% static 'img/norton.svg' %}"
+                                alt="Payment Security" />
+                            <img src="{% static 'img/ssl.svg' %}"
+                                alt="Payment Security" />
                         </div>
                     </div>
                 </div>
