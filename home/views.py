@@ -55,10 +55,10 @@ def signup(request):
         password = request.POST["password"]
         c_password = request.POST["cpassword"]
         if password == c_password:
-            if User.objects.filter(username=username).exists:
+            if User.objects.filter(username=username).exists():
                 messages.error(request, "This username is already taken.")
                 return redirect("home:signup")
-            elif User.objects.filter(email=email).exists:
+            elif User.objects.filter(email=email).exists():
                 messages.error(request, "This email is already taken.")
                 return redirect("home:singup")
             else: 
@@ -76,3 +76,7 @@ def signup(request):
             messages.error(request, "Password Not Matched.")
             return redirect("home:signup")
     return render(request, "signup.html")
+
+
+def login(request):
+    pass
