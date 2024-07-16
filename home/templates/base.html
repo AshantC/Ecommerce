@@ -89,17 +89,31 @@
                                 </div>
                             </div>
                         </div>
+                        {% if user.is_authenticated %}
+                        <div class="navbar-nav ml-auto">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle"
+                                    data-toggle="dropdown">{{ user.username }}</a>
+                                <div class="dropdown-menu">
+                                    <a href="/accounts/logout" class="dropdown-item">Logout</a>
+<!--                                    <a href="{% url 'home:signup' %}"-->
+<!--                                        class="dropdown-item">Register</a>-->
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
                         <div class="navbar-nav ml-auto">
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle"
                                     data-toggle="dropdown">User Account</a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Login</a>
+                                    <a href="accounts/login " class="dropdown-item">Login</a>
                                     <a href="{% url 'home:signup' %}"
                                         class="dropdown-item">Register</a>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </nav>
             </div>

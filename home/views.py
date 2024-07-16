@@ -10,7 +10,7 @@ from home.models import Category, Ad, Brand, Item, Slider
 class BaseView(View):
     views = {}
     views["category"] = Category.objects.filter(status = "active")
-    views["new"] = Item.objects.filter(status="active", label="news ")
+    views["new"] = Item.objects.filter(status="active", label="news")
     views["hots"] = Item.objects.filter(status="active", label="hot")
 
 class HomeView(BaseView):
@@ -18,7 +18,6 @@ class HomeView(BaseView):
         self.views["slider"] = Slider.objects.filter(status="active")
         self.views["ads"] = Ad.objects.all()
         self.views["brand"] = Brand.objects.filter(status="active")
-        self.views["new"] = Item.objects.filter(status="active", label="news ")
         
         return render(request, "index.html", self.views)
     
@@ -79,4 +78,7 @@ def signup(request):
 
 
 def login(request):
-    pass
+    return render(request, "registration/login.html")
+
+
+
