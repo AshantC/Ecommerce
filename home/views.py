@@ -82,3 +82,26 @@ def login(request):
 
 
 
+# def add_to_cart(request, slug):
+#     username = request.user.username
+#     price = Item.objects.get(slug=slug).price
+#     discounted_price = Item.objects.get(slug=slug).discounted_price
+#     quantity = Item.objects.get(slug=slug).quantity
+#
+#     if discounted_price > 0:
+#         original_price = discounted_price
+#     else:
+#         original_price = price
+#
+#     total = original_price * quantity
+#
+#     data = Cart.objects.create(
+#         username = username,
+#         item = Item.objects.filter(slug=slug)[0],
+#         slug = slug,
+#         quantity = quantity,
+#         total = total
+#     )
+#     data.save()
+#     return redirect("/")
+

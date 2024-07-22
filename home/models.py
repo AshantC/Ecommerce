@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 STATUS = (("active", "Active"), ("inactive", "Inactive"))
 LABEL = (("new", "New"), ("hot", "Hot"), ("", "Default"))
 
@@ -60,9 +62,24 @@ class Item(models.Model):
     specificatoin = models.TextField(blank=True)
     status = models.CharField(choices=STATUS, max_length=100)
     slug = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
     
     class Meta:
         verbose_name_plural = "Item"
-        
-        
-    
+
+    def add_to_cart(self):
+        return reverse('cart:add-to-cart', kwargs={'slug':self.slug})
+
+
+# class Cart(models.Model):
+#     username = models.CharField(max_length=100)
+#     items = models.ForeignKey(Item, on_delete=models.CASCADE)
+#     slug = models.CharField(max_length=300)
+#     quantity = models.IntegerField(default=1)
+#     checkout = models.BooleanField(default=False)
+#
+#     class Meta:
+#         verbose_name_plural = "Cart"
+
