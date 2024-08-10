@@ -1,8 +1,10 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 from home.models import Category, Ad, Brand, Item, Slider
+from cart.models import Cart, Item
+
 
 
 # Create your views here.
@@ -12,6 +14,11 @@ class BaseView(View):
     views["category"] = Category.objects.filter(status = "active")
     views["new"] = Item.objects.filter(status="active", label="news")
     views["hots"] = Item.objects.filter(status="active", label="hot")
+
+    # def get(self, request):
+    #     username = request.user.username
+    #     views["total_quantity"] = Item.objects.filter(username=username, checkout=False)
+
 
 class HomeView(BaseView):
     def get(self, request):
@@ -77,31 +84,30 @@ def signup(request):
     return render(request, "signup.html")
 
 
+# Default Login
+# def login(request):
+#     return render(request, "registration/login.html")
+
+# Custom Login and it use normal login.html template
 def login(request):
-    return render(request, "registration/login.html")
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return render(request, 'index.html')
+        else:
+            messages.error(request, "Wrong username or password")
+            return redirect("home:login")
+
+    return render(request, "login.html")
+
+def logout(request):
+    auth.logout(request)
+    return render(request, "index.html")
 
 
-
-# def add_to_cart(request, slug):
-#     username = request.user.username
-#     price = Item.objects.get(slug=slug).price
-#     discounted_price = Item.objects.get(slug=slug).discounted_price
-#     quantity = Item.objects.get(slug=slug).quantity
-#
-#     if discounted_price > 0:
-#         original_price = discounted_price
-#     else:
-#         original_price = price
-#
-#     total = original_price * quantity
-#
-#     data = Cart.objects.create(
-#         username = username,
-#         item = Item.objects.filter(slug=slug)[0],
-#         slug = slug,
-#         quantity = quantity,
-#         total = total
-#     )
-#     data.save()
-#     return redirect("/")
 
